@@ -2,11 +2,11 @@
 #include <math.h>
 #include <memory>
 
-template<typename T, typename... Args>
-std::unique_ptr<T> make_unique(Args&&... args)
-{
-    return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
-}
+//template<typename T, typename... Args>
+//std::unique_ptr<T> make_unique(Args&&... args)
+//{
+//    return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+//}
 
 double cube(double aD)
 {
@@ -78,15 +78,15 @@ public:
     {
         if (order == 1)
         {
-            numericalScheme = make_unique<firstOrderScheme>();
+            numericalScheme = std::make_unique<firstOrderScheme>();
         }
         else if (order == 2)
         {
-            numericalScheme = make_unique<secondOrderScheme>();
+            numericalScheme = std::make_unique<secondOrderScheme>();
         }
         else if (order == 4)
         {
-            numericalScheme = make_unique<fourthOrderScheme>();
+            numericalScheme = std::make_unique<fourthOrderScheme>();
         }
         else
         {
