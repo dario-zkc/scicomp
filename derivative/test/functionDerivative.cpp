@@ -32,9 +32,16 @@ int main ()
         case 1: myFunction = cube; break;
         // Output: 3.31
         case 2: myFunction = linear; break; // Output: 1
-        default: std::cout << "Incorrect Input - program exiting";
+        default: std::cout << "Incorrect Input - program exiting" << std::endl; return 1;
     }
-    derivativeOperator dop(myFunction, xValue, deltaX, orderChoice);
 
-    std::cout << dop.calculate() << std::endl;
+    try
+    {
+        derivativeOperator dop(myFunction, xValue, deltaX, orderChoice);
+        std::cout << dop.calculate() << std::endl;
+    }
+    catch( ... ) {
+        return 1;
+    }
+
 }

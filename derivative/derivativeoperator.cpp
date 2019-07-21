@@ -28,6 +28,7 @@ derivativeOperator::derivativeOperator
     else
     {
         std::cout << "Unknown order of accuracy: " << order << std::endl;
+        throw "Unknown order of accuracy";
     }
 }
 
