@@ -1,6 +1,6 @@
 #include <iostream>
 #include <math.h>
-#include "derivativeoperator.h"
+#include "../derivativeoperator.h"
 
 double cube(double aD)
 {

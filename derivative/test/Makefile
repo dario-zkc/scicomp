@@ -7,8 +7,8 @@ functionDerivative: functionDerivative.o derivativeoperator.o
 functionDerivative.o: functionDerivative.cpp
 	$(CC) $(CFLAGS) -c functionDerivative.cpp
 
-derivativeoperator.o: derivativeoperator.cpp
-	$(CC) $(CFLAGS) -c derivativeoperator.cpp
+derivativeoperator.o: ../derivativeoperator.cpp
+	$(CC) $(CFLAGS) -c ../derivativeoperator.cpp
 
 clean:
 	rm -f functionDerivative *.o
