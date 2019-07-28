@@ -30,8 +30,7 @@ int main ()
     switch (functionChoice)
     {
         case 1: myFunction = cube; break;
-        // Output: 3.31
-        case 2: myFunction = linear; break; // Output: 1
+        case 2: myFunction = linear; break;
         default: std::cout << "Incorrect Input - program exiting" << std::endl; return 1;
     }
 
@@ -40,7 +39,8 @@ int main ()
         derivativeOperator dop(myFunction, xValue, deltaX, orderChoice);
         std::cout << dop.calculate() << std::endl;
     }
-    catch( ... ) {
+    catch( ... )
+    {
         return 1;
     }
 
