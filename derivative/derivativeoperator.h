@@ -2,55 +2,63 @@
 #define DERIVATIVEOPERATOR_H
 
 #include <iostream>
-#include <memory>
+#include <unordered_map>
+#include <string>
 
+template <typename ImplScheme>
 class scheme
 {
     public:
-        virtual double calculate
+        double calculate
         (
             double aF(double),
             double aXValue,
             double aDeltaX
-        ) const = 0;
+        ) const
+        {
+            return impl().calculate(aF, aXValue, aDeltaX);
+        }
 
-        virtual ~scheme() = default;
+    const ImplScheme& impl() const
+    {
+        return static_cast<ImplScheme const&>(*this);
+    }
 };
 
 class firstOrderScheme
-: public scheme
+: public scheme<firstOrderScheme>
 {
     public:
-        virtual double calculate
+        double calculate
         (
             double aF(double),
             double aXValue,
             double aDeltaX
-        ) const override;
+        ) const;
 };
 
 class secondOrderScheme
-: public scheme
+: public scheme<secondOrderScheme>
 {
     public:
-        virtual double calculate
+        double calculate
         (
             double aF(double),
             double aXValue,
             double aDeltaX
-        ) const override;
+        ) const;
 };
 
 class fourthOrderScheme
-: public scheme
+: public scheme<fourthOrderScheme>
 {
     public:
-        virtual double calculate
+        double calculate
         (
             double aF(double),
             double aXValue,
             double aDeltaX
-        ) const override;
+        ) const;
 };
 
 class derivativeOperator
@@ -60,7 +68,6 @@ class derivativeOperator
         double (*aF) (double);
         double aXValue;
         double aDeltaX;
-        std::unique_ptr<scheme> numericalScheme;
 
     public:
         derivativeOperator() = delete;
@@ -73,6 +80,9 @@ class derivativeOperator
         );
 
         double calculate();
+
+        template <typename Implementation>
+        double calcImp(const scheme<Implementation>& numScheme);
 };
 
 #endif // DERIVATIVEOPERATOR_H
