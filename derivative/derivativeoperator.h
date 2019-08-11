@@ -19,10 +19,17 @@ class scheme
             return impl().calculate(aF, aXValue, aDeltaX);
         }
 
-    const ImplScheme& impl() const
-    {
-        return static_cast<ImplScheme const&>(*this);
-    }
+    friend class firstOrderScheme;
+    friend class secondOrderScheme;
+    friend class fourthOrderScheme;
+
+    private:
+        const ImplScheme& impl() const
+        {
+            return static_cast<ImplScheme const&>(*this);
+        }
+
+        scheme(){}
 };
 
 class firstOrderScheme
