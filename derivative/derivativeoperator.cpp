@@ -13,7 +13,7 @@ derivativeOperator::derivativeOperator
     order(ord)
 {}
 
-double derivativeOperator::calculate()
+double derivativeOperator::calculate() const
 {
 
     if (order == 1)
@@ -39,7 +39,7 @@ double derivativeOperator::calculate()
 }
 
 template <typename Implementation>
-double derivativeOperator::calcImp(const scheme<Implementation>& numScheme)
+double derivativeOperator::calcImp(const scheme<Implementation>& numScheme) const
 {
     return numScheme.calculate(aF, aXValue, aDeltaX);
 }

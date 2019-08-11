@@ -79,10 +79,10 @@ class derivativeOperator
             int ord
         );
 
-        double calculate();
+        double calculate() const;
 
         template <typename Implementation>
-        double calcImp(const scheme<Implementation>& numScheme);
+        double calcImp(const scheme<Implementation>& numScheme) const;
 };
 
 #endif // DERIVATIVEOPERATOR_H
