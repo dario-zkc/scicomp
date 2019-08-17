@@ -2,21 +2,36 @@
 #define DERIVATIVEOPERATOR_H
 
 #include <iostream>
-#include <unordered_map>
+#include <memory>
 #include <string>
 
-template <typename ImplScheme>
-class scheme
+class schemeInterface
 {
     public:
-        double calculate
+        virtual double calculate
         (
             double aF(double),
             double aXValue,
             double aDeltaX
-        ) const
+        ) const = 0;
+
+        virtual ~schemeInterface() = default;
+};
+
+
+template <typename ImplScheme>
+class scheme
+: public schemeInterface
+{
+    public:
+        virtual double calculate
+        (
+            double aF(double),
+            double aXValue,
+            double aDeltaX
+        ) const override
         {
-            return impl().calculate(aF, aXValue, aDeltaX);
+            return impl().calc(aF, aXValue, aDeltaX);
         }
 
     friend class firstOrderScheme;
@@ -28,15 +43,13 @@ class scheme
         {
             return static_cast<ImplScheme const&>(*this);
         }
-
-        scheme(){}
 };
 
 class firstOrderScheme
 : public scheme<firstOrderScheme>
 {
     public:
-        double calculate
+        double calc
         (
             double aF(double),
             double aXValue,
@@ -48,7 +61,7 @@ class secondOrderScheme
 : public scheme<secondOrderScheme>
 {
     public:
-        double calculate
+        double calc
         (
             double aF(double),
             double aXValue,
@@ -60,7 +73,7 @@ class fourthOrderScheme
 : public scheme<fourthOrderScheme>
 {
     public:
-        double calculate
+        double calc
         (
             double aF(double),
             double aXValue,
@@ -75,6 +88,7 @@ class derivativeOperator
         double (*aF) (double);
         double aXValue;
         double aDeltaX;
+        std::unique_ptr<schemeInterface> numericalScheme;
 
     public:
         derivativeOperator() = delete;
@@ -87,9 +101,6 @@ class derivativeOperator
         );
 
         double calculate() const;
-
-        template <typename Implementation>
-        double calcImp(const scheme<Implementation>& numScheme) const;
 };
 
 #endif // DERIVATIVEOPERATOR_H
