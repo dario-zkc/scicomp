@@ -1,4 +1,4 @@
-CFLAGS = -std=c++17
+CFLAGS = -std=c++17 -O3
 CC = g++
 
 functionDerivative: functionDerivative.o derivativeoperator.o
