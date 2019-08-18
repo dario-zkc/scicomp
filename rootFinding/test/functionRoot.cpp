@@ -24,8 +24,8 @@ int main()
     // Stores memory address of function
     std::cout << "Choose a function 1 - quadratic polynomial, 2 - cubic polynomial: ";
     std::cin >> functionChoice;
-//    std::cout << "Choose a method 1 - bisection, 2 - Newton-Raphson : ";
-//    std::cin >> methodChoice;
+    std::cout << "Choose a method 1 - bisection, 2 - Newton-Raphson : ";
+    std::cin >> methodChoice;
 
     switch (functionChoice)
     {
@@ -36,8 +36,24 @@ int main()
 
     try
     {
-        rootFinder rf(myFunction, intervalBegin, intervalEnd);
-        std::cout << rf.calculate() << std::endl;
+        if (methodChoice == 1)
+        {
+            rootFinder rf(myFunction, intervalBegin, intervalEnd);
+            std::cout << rf.calculate() << std::endl;
+        }
+        else if (methodChoice == 2)
+        {
+            int orderChoice;
+            std::cout << "Choose the order of accuracy for the derivative operator: " << std::endl
+                      << "1 - first, 2 - second, 4 - fourth: " << std::endl;
+            std::cin >> orderChoice;
+            rootFinder rf(myFunction, intervalBegin, intervalEnd, orderChoice);
+            std::cout << rf.calculate() << std::endl;
+        }
+        else
+        {
+            std::cout << "Wrong method choice" << std::endl;
+        }
     }
     catch( ... )
     {

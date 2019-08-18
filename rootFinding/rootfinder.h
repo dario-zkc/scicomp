@@ -28,22 +28,22 @@ class bisection: public rootFindingMethod
         ) const override;
 };
 
-//class NewtonMethod: public rootFindingMethod
-//{
-//    public:
-//        NewtonMethod() = delete;
-//        NewtonMethod(int order);
+class NewtonMethod: public rootFindingMethod
+{
+    public:
+        NewtonMethod() = delete;
+        NewtonMethod(int order);
 
-//        virtual double calculate
-//        (
-//            double aF(double),
-//            double ll,
-//            double rl
-//        ) const override;
+        virtual double calculate
+        (
+            double aF(double),
+            double ll,
+            double rl
+        ) const override;
 
-//    private:
-//        std::unique_ptr<derivativeOperator> dop;
-//};
+    private:
+        std::unique_ptr<derivativeOperator> dop;
+};
 
 class rootFinder
 {
@@ -62,13 +62,13 @@ class rootFinder
             double rl
         );
 
-//        rootFinder
-//        (
-//            double aF(double),
-//            double ll,
-//            double rl,
-//            int order
-//        );
+        rootFinder
+        (
+            double aF(double),
+            double ll,
+            double rl,
+            int order
+        );
 
         double calculate() const;
 };

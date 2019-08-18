@@ -17,21 +17,21 @@ rootFinder::rootFinder
     method = std::make_unique<bisection>();
 }
 
-//rootFinder::rootFinder
-//(
-//    double aF(double),
-//    double ll,
-//    double rl,
-//    int order
-//):
-//    aF(aF),
-//    leftLimit(ll),
-//    rightLimit(rl),
-//    method()
-//{
-//    std::cout << "Constructing 'Newton' method" << std::endl;
-//    method = std::make_unique<NewtonMethod>(order);
-//}
+rootFinder::rootFinder
+(
+    double aF(double),
+    double ll,
+    double rl,
+    int order
+):
+    aF(aF),
+    leftLimit(ll),
+    rightLimit(rl),
+    method()
+{
+    std::cout << "Constructing 'Newton' method" << std::endl;
+    method = std::make_unique<NewtonMethod>(order);
+}
 
 double rootFinder::calculate() const
 {
@@ -64,8 +64,18 @@ double bisection::calculate
     return (leftLimit + rightLimit)/2;
 }
 
-//NewtonMethod::NewtonMethod(int order):
-//    dop()
-//{
+NewtonMethod::NewtonMethod(int order):
+    dop()
+{
 
-//}
+}
+
+double NewtonMethod::calculate
+(
+    double aF(double),
+    double ll,
+    double rl
+) const
+{
+    return 0;
+}
