@@ -47,9 +47,8 @@ double bisection::calculate
 {
     double leftLimit = ll;
     double rightLimit = rl;
-    double error = 1e-6;
 
-    while (abs(leftLimit - rightLimit) > error)
+    while (abs(leftLimit - rightLimit) > tolerance)
     {
         double midpoint = (leftLimit + rightLimit)/2;
         if (aF(midpoint) * aF(rightLimit) <= 0.0)
@@ -64,11 +63,9 @@ double bisection::calculate
     return (leftLimit + rightLimit)/2;
 }
 
-NewtonMethod::NewtonMethod(int order):
-    dop()
-{
-
-}
+NewtonMethod::NewtonMethod(int order)
+:derivativeOrder(order)
+{}
 
 double NewtonMethod::calculate
 (
@@ -77,5 +74,31 @@ double NewtonMethod::calculate
     double rl
 ) const
 {
-    return 0;
+    double dfdx = 0.0;
+    int count = 0;
+
+    double deltaX = abs(ll-rl)/10;
+    double rootEstimate = (aF(ll) + aF(rl))/2;
+
+    derivativeOperator dop
+        (
+            aF,
+            rootEstimate,
+            deltaX,
+            derivativeOrder
+        );
+
+    while ((abs(deltaX) >= tolerance) && (count < 10))
+    {
+        dfdx = dop.calculate();
+
+        deltaX = -aF(rootEstimate) / dfdx;
+        rootEstimate += deltaX;
+
+        dop.setX(rootEstimate);
+        dop.setDeltaX(deltaX);
+
+        count++;
+    }
+    return rootEstimate;
 }

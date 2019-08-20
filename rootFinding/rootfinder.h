@@ -8,6 +8,8 @@
 class rootFindingMethod
 {
     public:
+        double tolerance = 1e-6;
+
         virtual double calculate
         (
             double aF(double),
@@ -42,7 +44,7 @@ class NewtonMethod: public rootFindingMethod
         ) const override;
 
     private:
-        std::unique_ptr<derivativeOperator> dop;
+        int derivativeOrder;
 };
 
 class rootFinder
