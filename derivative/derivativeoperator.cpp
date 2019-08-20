@@ -11,19 +11,19 @@ derivativeOperator::derivativeOperator
     aXValue(aXValue),
     aDeltaX(aDeltaX),
     order(ord),
-    numericalScheme()
+    derivativeScheme()
 {
     if (order == 1)
     {
-        numericalScheme = std::make_unique<firstOrderScheme>();
+        derivativeScheme = std::make_unique<firstOrderDerivative>();
     }
     else if (order == 2)
     {
-        numericalScheme = std::make_unique<secondOrderScheme>();
+        derivativeScheme = std::make_unique<secondOrderDerivative>();
     }
     else if (order == 4)
     {
-        numericalScheme = std::make_unique<fourthOrderScheme>();
+        derivativeScheme = std::make_unique<fourthOrderDerivative>();
     }
     else
     {
@@ -34,10 +34,20 @@ derivativeOperator::derivativeOperator
 
 double derivativeOperator::calculate()
 {
-    return numericalScheme->calculate(aF, aXValue, aDeltaX);
+    return derivativeScheme->calculate(aF, aXValue, aDeltaX);
 }
 
-double firstOrderScheme::calculate
+void derivativeOperator::setX(double newX)
+{
+    aXValue = newX;
+}
+
+void derivativeOperator::setDeltaX(double newDeltaX)
+{
+    aDeltaX = newDeltaX;
+}
+
+double firstOrderDerivative::calculate
 (
     double aF(double),
     double aXValue,
@@ -48,7 +58,7 @@ double firstOrderScheme::calculate
             / aDeltaX;
 }
 
-double secondOrderScheme::calculate
+double secondOrderDerivative::calculate
 (
     double aF(double),
     double aXValue,
@@ -59,7 +69,7 @@ double secondOrderScheme::calculate
             / (2 * aDeltaX);
 }
 
-double fourthOrderScheme::calculate
+double fourthOrderDerivative::calculate
 (
     double aF(double),
     double aXValue,

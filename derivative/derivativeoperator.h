@@ -1,10 +1,10 @@
-#ifndef DERIVATIVEOPERATOR_H
+﻿#ifndef DERIVATIVEOPERATOR_H
 #define DERIVATIVEOPERATOR_H
 
 #include <iostream>
 #include <memory>
 
-class scheme
+class derivative
 {
     public:
         virtual double calculate
@@ -14,11 +14,11 @@ class scheme
             double aDeltaX
         ) const = 0;
 
-        virtual ~scheme() = default;
+        virtual ~derivative() = default;
 };
 
-class firstOrderScheme
-: public scheme
+class firstOrderDerivative
+: public derivative
 {
     public:
         virtual double calculate
@@ -29,8 +29,8 @@ class firstOrderScheme
         ) const override;
 };
 
-class secondOrderScheme
-: public scheme
+class secondOrderDerivative
+: public derivative
 {
     public:
         virtual double calculate
@@ -41,8 +41,8 @@ class secondOrderScheme
         ) const override;
 };
 
-class fourthOrderScheme
-: public scheme
+class fourthOrderDerivative
+: public derivative
 {
     public:
         virtual double calculate
@@ -60,7 +60,7 @@ class derivativeOperator
         double (*aF) (double);
         double aXValue;
         double aDeltaX;
-        std::unique_ptr<scheme> numericalScheme;
+        std::unique_ptr<derivative> derivativeScheme;
 
     public:
         derivativeOperator() = delete;
@@ -71,6 +71,9 @@ class derivativeOperator
             double aDeltaX,
             int ord
         );
+
+        void setX(double newX);
+        void setDeltaX(double newDeltaX);
 
         double calculate();
 };
