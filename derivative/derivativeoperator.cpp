@@ -37,6 +37,16 @@ double derivativeOperator::calculate()
     return derivativeScheme->calculate(aF, aXValue, aDeltaX);
 }
 
+void derivativeOperator::setX(double newX)
+{
+    aXValue = newX;
+}
+
+void derivativeOperator::setDeltaX(double newDeltaX)
+{
+    aDeltaX = newDeltaX;
+}
+
 double firstOrderDerivative::calculate
 (
     double aF(double),

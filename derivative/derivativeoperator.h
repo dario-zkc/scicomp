@@ -72,6 +72,9 @@ class derivativeOperator
             int ord
         );
 
+        void setX(double newX);
+        void setDeltaX(double newDeltaX);
+
         double calculate();
 };
 
